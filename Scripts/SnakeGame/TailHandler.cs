@@ -7,50 +7,59 @@ public class TailHandler : MonoBehaviour
 {
     public List<Vector2> positions;
     public int tailcount;
-    public GameObject tailCell,cells;
+    public GameObject tailCell, cells;
+
+    public int cellcount;
 
     int posLenght = 0;
-
+    private float spawnTime = 0.178f;
     Vector2 loc;
 
-
-
-
-    private void FixedUpdate()
+    private void Awake()
     {
-        if (GameObject.FindGameObjectsWithTag("Cell").Length < tailcount)
+        cells.transform.SetParent(null);
+   
+        StartCoroutine(SpawnObject());
+    }
+    private void Update()
+    {
+        tailcount = cells.transform.childCount;
+    }
+
+    public IEnumerator SpawnObject()
+    {
+        while (true)
         {
-            GameObject cell = Instantiate(tailCell);
-            cell.transform.SetParent(cells.transform);
-            cell.transform.position = new Vector3(loc.x, loc.y, 0);
+            
+            while (cellcount > tailcount)
+            {
+                GameObject cell = Instantiate(tailCell);
+                cell.transform.SetParent(cells.transform);
+                Debug.Log(cell.transform.GetSiblingIndex());
+                cell.GetComponent<CellHandler>().ttl = 1;
+                cell.transform.position = new Vector3(loc.x, loc.y, 0);
+                yield return new WaitForSeconds(spawnTime);
+            }
+
         }
+
     }
     public void UpdatePositions(Vector3 position)
     {
-        Vector2 pos = new Vector2(position.x,position.y);
+        Vector2 pos = new Vector2(position.x, position.y);
         loc = pos;
         TailLenght(pos);
-
-
     }
-    //private void TailLenght(Vector2 pos)
-    //{
-    //   if(GameObject.FindGameObjectsWithTag("Cell").Length < tailcount)
-    //    {
-    //       GameObject cell = Instantiate(tailCell);
-    //        cell.transform.position = new Vector3(pos.x,pos.y,0);
-    //    }
-    //}
+
     public void TailLenght(Vector2 pos)
     {
-        if (posLenght < tailcount)
+        if (posLenght < cellcount)
         {
-            Debug.Log("PosLenght: " + posLenght);
             positions.Insert(posLenght, pos);
             posLenght++;
         }
         else posLenght = 0;
-        if (positions.Count == tailcount + 1) positions.RemoveAt(tailcount);
+        if (positions.Count == cellcount + 1) positions.RemoveAt(cellcount);
 
     }
 

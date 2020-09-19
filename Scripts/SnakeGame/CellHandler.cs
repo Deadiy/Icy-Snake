@@ -16,7 +16,7 @@ public class CellHandler : MonoBehaviour
         while (ttl > 0)
         {
             Debug.Log(ttl--);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1f);
         }
         Destroy(gameObject);
     }

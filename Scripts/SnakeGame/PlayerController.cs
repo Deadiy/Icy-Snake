@@ -52,7 +52,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        InvokeRepeating("Move", 1, 1);
+
     }
 
 
