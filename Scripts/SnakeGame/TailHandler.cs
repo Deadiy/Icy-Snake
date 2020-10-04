@@ -8,13 +8,14 @@ public class TailHandler : MonoBehaviour
     public List<Vector2> positions;
     public int tailcount;
     public GameObject tailCell, cells;
-
+    public List<GameObject> cellstore;
     public int cellcount;
-
+    public Vector3 player;
     int posLenght = 0;
     private float spawnTime = 0.178f;
     Vector2 loc;
 
+ 
     bool limiter = false;
 
     private void Awake()
@@ -22,11 +23,12 @@ public class TailHandler : MonoBehaviour
         cells.transform.SetParent(null);
 
         StartCoroutine(SpawnObject());
+        InvokeRepeating("UpdatePositions", 0, 0.178f);
     }
     private void Update()
     {
         tailcount = cells.transform.childCount;
-
+        tailCell.GetComponent<CellHandler>().cellcount = cellcount;
 
     }
 
@@ -42,8 +44,8 @@ public class TailHandler : MonoBehaviour
                     GameObject cell = Instantiate(tailCell);
                     cell.transform.SetParent(cells.transform);
                     //Debug.Log(cell.transform.GetSiblingIndex());
-                    cell.GetComponent<CellHandler>().ttl = 0.2f + (cell.transform.GetSiblingIndex() +1 ) ;
-                    cell.transform.position = new Vector3(loc.x, loc.y, 0);
+                    //cell.transform.position = new Vector3(loc.x, loc.y, 0);
+                    cellstore.Add(cell);
                     limiter = false;
                 }
             }
@@ -53,11 +55,15 @@ public class TailHandler : MonoBehaviour
     }
 
  #region TailPos
-    public void UpdatePositions(Vector3 position)
+    public void UpdatePositions()
     {
-        Vector2 pos = new Vector2(position.x, position.y);
-        loc = pos;
+        Vector2 pos = new Vector2(player.x, player.y);
         TailLenght(pos);
+        for (int i = 0; i < cellstore.Count; i++)
+        {
+            cellstore[i].transform.position = new Vector3(positions[i].x, positions[i].y, 0);
+        }
+
     }
 
     public void TailLenght(Vector2 pos)

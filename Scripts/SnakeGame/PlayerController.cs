@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckDirection();
-        UpdatePositions();
+        tail.player = transform.position;
         Move();
     }
 
@@ -69,12 +69,6 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(Vector3.forward * dir);
     }
 
-
-
-    void UpdatePositions() 
-    {
-        tail.UpdatePositions(transform.position);
-    }
 
 
     public void Move()
