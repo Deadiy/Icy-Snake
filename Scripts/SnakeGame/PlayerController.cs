@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public TailHandler tail;
+    public GameObject head;
 
    public Vector2 movement, movementOld;
    bool gotInput = false;
@@ -15,12 +18,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckDirection();
+        UpdatePositions();
+        Move();
     }
 
     private void CheckDirection()
     {
         Vector2 move = movement;
-        tail.UpdatePositions(transform.position);
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         if (move != movement)
@@ -38,22 +42,38 @@ public class PlayerController : MonoBehaviour
         else gotInput = false;
         if ((movementOld.x ==1 || movementOld.x == -1) && movementOld.y !=0) movementOld.x = 0;
 
-        InputTimer(1f);
+     
     }
 
-    private void InputTimer(float time)
+
+    public void HeadHandler()
     {
-        float timer = Time.fixedDeltaTime;
-        while (timer > time)
+        int dir = 0;
+        switch (movementOld.ToString())
         {
-            gotInput = false;
+            case "(-1.0, 0.0)":
+                dir = 0;
+                break;
+            case "(1.0, 0.0)":
+                dir = 180;
+                break;
+            case "(0.0, 1.0)":
+                dir = -90;
+                break;
+            case "(0.0, -1.0)":
+                dir = 90;
+                break;
+            default:
+                break;
         }
+        transform.rotation = Quaternion.Euler(Vector3.forward * dir);
     }
 
-    void FixedUpdate()
-    {
-        InvokeRepeating("Move", 1, 1);
 
+
+    void UpdatePositions() 
+    {
+        tail.UpdatePositions(transform.position);
     }
 
 
@@ -63,9 +83,14 @@ public class PlayerController : MonoBehaviour
         if (gotInput == false)
         {     
             rb.MovePosition(rb.position + movementOld * (moveSpeed * Time.fixedDeltaTime));
-        }else
+
+        }
+        else
             rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        HeadHandler();
 
 
     }
+
+
 }

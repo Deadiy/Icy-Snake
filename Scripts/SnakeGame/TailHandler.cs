@@ -15,35 +15,44 @@ public class TailHandler : MonoBehaviour
     private float spawnTime = 0.178f;
     Vector2 loc;
 
+    bool limiter = false;
+
     private void Awake()
     {
         cells.transform.SetParent(null);
-   
+
         StartCoroutine(SpawnObject());
     }
     private void Update()
     {
         tailcount = cells.transform.childCount;
+
+
     }
 
     public IEnumerator SpawnObject()
     {
         while (true)
         {
-            
-            while (cellcount > tailcount)
+           if (tailcount < cellcount)
             {
-                GameObject cell = Instantiate(tailCell);
-                cell.transform.SetParent(cells.transform);
-                Debug.Log(cell.transform.GetSiblingIndex());
-                cell.GetComponent<CellHandler>().ttl = 1;
-                cell.transform.position = new Vector3(loc.x, loc.y, 0);
-                yield return new WaitForSeconds(spawnTime);
+                if (limiter == false)
+                {
+                    limiter = true;
+                    GameObject cell = Instantiate(tailCell);
+                    cell.transform.SetParent(cells.transform);
+                    //Debug.Log(cell.transform.GetSiblingIndex());
+                    cell.GetComponent<CellHandler>().ttl = 0.2f + (cell.transform.GetSiblingIndex() +1 ) ;
+                    cell.transform.position = new Vector3(loc.x, loc.y, 0);
+                    limiter = false;
+                }
             }
-
+            yield return new WaitForSeconds(spawnTime);
         }
 
     }
+
+ #region TailPos
     public void UpdatePositions(Vector3 position)
     {
         Vector2 pos = new Vector2(position.x, position.y);
@@ -64,3 +73,4 @@ public class TailHandler : MonoBehaviour
     }
 
 }
+#endregion

@@ -8,16 +8,17 @@ public class CellHandler : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Countdown());
+      StartCoroutine(Countdown());
     }
 
     private IEnumerator Countdown()
     {
         while (ttl > 0)
         {
-            Debug.Log(ttl--);
+            ttl--;
             yield return new WaitForSeconds(1f);
         }
         Destroy(gameObject);
     }
+
 }
