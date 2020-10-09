@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.XR;
 using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
@@ -25,8 +26,7 @@ public class PlayerController : MonoBehaviour
     private void CheckDirection()
     {
         Vector2 move = movement;
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement =new Vector2 (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (move != movement)
         {
             gotInput = true;

@@ -725,7 +725,9 @@ MonoBehaviour:
   tailcount: 0
   tailCell: {fileID: 6595598355092628328, guid: 98de64a8d960b33488b744cdf6802b30, type: 3}
   cells: {fileID: 2095713573}
-  cellcount: 0
+  cellstore: []
+  cellcount: 10
+  player: {x: 0, y: 0, z: 0}
 --- !u!1 &1276865556
 GameObject:
   m_ObjectHideFlags: 0

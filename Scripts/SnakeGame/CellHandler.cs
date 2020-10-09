@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class CellHandler : MonoBehaviour
 {
-    public float ttl = 20f;
+    public float ttl = 0;
     public int childindex = 0;
     public int cellcount;
 
     void Start()
     {
-     // StartCoroutine(Countdown());
+        ttl = Mathf.CeilToInt(Random.Range(0000000f, 9999999f));
     }
     void Update()
     {
         childindex = transform.GetSiblingIndex();
-        FirstLast();
+        //FirstLast();
     }
     private IEnumerator Countdown()
     {

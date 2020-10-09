@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TailHandler : MonoBehaviour
 {
@@ -29,22 +30,21 @@ public class TailHandler : MonoBehaviour
     {
         tailcount = cells.transform.childCount;
         tailCell.GetComponent<CellHandler>().cellcount = cellcount;
-
+        
     }
 
     public IEnumerator SpawnObject()
     {
         while (true)
         {
-           if (tailcount < cellcount)
+
+            if (tailcount < cellcount)
             {
                 if (limiter == false)
                 {
                     limiter = true;
                     GameObject cell = Instantiate(tailCell);
                     cell.transform.SetParent(cells.transform);
-                    //Debug.Log(cell.transform.GetSiblingIndex());
-                    //cell.transform.position = new Vector3(loc.x, loc.y, 0);
                     cellstore.Add(cell);
                     limiter = false;
                 }
@@ -54,28 +54,24 @@ public class TailHandler : MonoBehaviour
 
     }
 
- #region TailPos
+    #region TailPos
     public void UpdatePositions()
     {
         Vector2 pos = new Vector2(player.x, player.y);
         TailLenght(pos);
+        cellstore[0].GetComponent<SpriteRenderer>().color = Color.yellow;
         for (int i = 0; i < cellstore.Count; i++)
         {
-            cellstore[i].transform.position = new Vector3(positions[i].x, positions[i].y, 0);
+            cellstore[i].transform.position = positions[i];
+            
         }
-
     }
 
     public void TailLenght(Vector2 pos)
     {
-        if (posLenght < cellcount)
-        {
-            positions.Insert(posLenght, pos);
-            posLenght++;
-        }
-        else posLenght = 0;
+        positions.Insert(0, pos);
         if (positions.Count == cellcount + 1) positions.RemoveAt(cellcount);
-
+       
     }
 
 }
