@@ -7,37 +7,41 @@ public class CellHandler : MonoBehaviour
     public float ttl = 0;
     public int childindex = 0;
     public int cellcount;
-
+    private Color _color_ = Color.white;
+    public GameObject parent;
     void Start()
     {
         ttl = Mathf.CeilToInt(Random.Range(0000000f, 9999999f));
+
+        transform.SetParent(parent.transform);
     }
     void Update()
     {
         childindex = transform.GetSiblingIndex();
-        //FirstLast();
     }
-    private IEnumerator Countdown()
+
+    public void FirstLast(Color color)
     {
-        while (ttl > 0)
-        {
-            ttl--;
-            yield return new WaitForSeconds(1f);
-        }
-        Destroy(gameObject);
+        GetComponent<SpriteRenderer>().color = color;
+        Invoke("ColorReset",0.178f);
     }
 
-    public void FirstLast()
+    public void ColorReset()
     {
-        int parentchilds = cellcount;
-        if(childindex == parentchilds)
-        {
-            ttl = 0;
-        }else if(childindex > parentchilds)
-        {
-            ttl = 20;
-        }
-
+        GetComponent<SpriteRenderer>().color = _color_;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision);
+        if (collision.tag == "Player" && childindex >= 5)
+        {
+            parent.SetActive(false);
+            collision.gameObject.SetActive(false);
 
+        }
+        if(collision.tag == "Powerup")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
