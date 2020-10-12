@@ -50,39 +50,20 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public bool CheckPos(Vector3 pos, GameObject[] objects)
+    public bool CheckPos(Vector3 pos, GameObject ParentObject)
     {
         bool check = false;
 
-        for (int i = 0; i < objects.Length; i++)
+        foreach (Transform obj in ParentObject.GetComponentInChildren<Transform>())
         {
-            if (pos == objects[i].transform.position)
+            if (obj.position == pos)
             {
                 check = true;
             }
         }
         return check;
     }
-    public bool CheckPos(Vector3 pos, GameObject[] objects, GameObject[] objects2)
-    {
-        bool check = false;
 
-        for (int i = 0; i < objects.Length; i++)
-        {
-            if (pos == objects[i].transform.position)
-            {
-                check = true;
-            }
-        }
-        for (int i = 0; i < objects2.Length; i++)
-        {
-            if (pos == objects2[i].transform.position)
-            {
-                check = true;
-            }
-        }
-        return check;
-    }
     public void GameOver()
     {
         if (player.activeSelf == false)
@@ -106,8 +87,10 @@ public class Spawner : MonoBehaviour
         Vector2 meow = new Vector2(Mathf.FloorToInt(Random.Range(outbounds_topcorner.x, outbounds_bottomcorner.x)),
         Mathf.FloorToInt(Random.Range(outbounds_topcorner.y, outbounds_bottomcorner.y)));
 
-        if (meow != oldpos && tail.GetComponent<TailHandler>().CheckPos(meow)== false && CheckPos(meow,enemies, powerups) == false)
+        Vector2 position = player.transform.position;
+        if (meow != oldpos && CheckPos(meow, enemy) == false && meow != position)
         {
+            Debug.Log("new position");
             oldpos = meow;
             return meow;
         }
