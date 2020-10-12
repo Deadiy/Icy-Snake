@@ -288,8 +288,10 @@ MonoBehaviour:
   powerUps: {fileID: 1515716110}
   enemies: {fileID: 934636486}
   powerup:
-  - {fileID: 6595598355092628328, guid: f700364b2442eac479757952cae56e2c, type: 3}
-  - {fileID: 0}
+  - {fileID: 6595598355092628328, guid: 0920f23beb905d641a87e8a0522dc05a, type: 3}
+  - {fileID: 6595598355092628328, guid: c879ecdd23caf6446a04bf421dc47287, type: 3}
+  - {fileID: 6595598355092628328, guid: 44c8729beb1788a4a867e84e3ac1d839, type: 3}
+  - {fileID: 6595598355092628328, guid: 4f611debfab44964e9d301963a252f14, type: 3}
   enemy:
   - {fileID: 6595598355092628328, guid: 076745cde8041344abb662e0de985d4c, type: 3}
 --- !u!1 &221015460
@@ -401,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 306896523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 668873741}
   m_RootOrder: 0
@@ -671,6 +673,7 @@ MonoBehaviour:
   head: {fileID: 306896523}
   movement: {x: 0, y: 0}
   movementOld: {x: 0, y: 0}
+  score: 0
 --- !u!61 &668873743
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -736,8 +739,8 @@ MonoBehaviour:
   cells: {fileID: 2095713573}
   cellstore: []
   cellcount: 0
-  color: {r: 0.9528302, g: 0.8847298, b: 0.57079923, a: 0.72156864}
-  player: {x: 0, y: 0, z: 0}
+  color: {r: 0.61933815, g: 0.9529412, b: 0.57254905, a: 1}
+  player: {fileID: 668873741}
 --- !u!1 &934636486
 GameObject:
   m_ObjectHideFlags: 0

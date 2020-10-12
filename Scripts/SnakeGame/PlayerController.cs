@@ -12,16 +12,17 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public TailHandler tail;
     public GameObject head;
+    public Vector2 movement, movementOld;
+    public int score = 0;
 
-   public Vector2 movement, movementOld;
-   bool gotInput = false;
+    bool gotInput = false;
 
     void Update()
     {
         CheckDirection();
-        tail.player = transform.position;
         Move();
     }
+
 
     private void CheckDirection()
     {
@@ -86,5 +87,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    public void OnDeath()
+    {
+        gameObject.SetActive(false);
+        tail.GetComponent<TailHandler>().cells.SetActive(false);
+    }
 }

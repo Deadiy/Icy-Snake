@@ -33,7 +33,7 @@ public class CellHandler : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision);
-        if (collision.tag == "Player" && childindex >= 5)
+        if (collision.tag == "Player" && childindex >= 2)
         {
             parent.SetActive(false);
             collision.gameObject.SetActive(false);

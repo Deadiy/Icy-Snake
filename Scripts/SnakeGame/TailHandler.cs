@@ -12,15 +12,16 @@ public class TailHandler : MonoBehaviour
     public List<GameObject> cellstore;
     public int cellcount;
     public Color color;
-    public Vector3 player;
+    public Transform player;
     private float spawnTime = 0.178f;
     Vector2 loc;
-
-
+    private Color _color_ = Color.white;
+    private PlayerController play;
     bool limiter = false;
 
     private void Awake()
     {
+        play = player.GetComponent<PlayerController>();
         cells.transform.SetParent(null);
         StartCoroutine(SpawnObject());
         InvokeRepeating("UpdatePositions", 0, 0.178f);
@@ -55,7 +56,7 @@ public class TailHandler : MonoBehaviour
     #region TailPos
     public void UpdatePositions()
     {
-        Vector2 pos = new Vector2(player.x, player.y);
+        Vector2 pos = new Vector2(player.position.x, player.position.y);
         TailLenght(pos);
         
         for (int i = 0; i < cellstore.Count; i++)
@@ -65,7 +66,9 @@ public class TailHandler : MonoBehaviour
     }
     public void Eating(int points)
     {
-        cellcount += points;
+        cellcount++;
+        play.score += points;
+        FirstLast(color, play.head.GetComponent<SpriteRenderer>());
         for (int i = 0; i < cellstore.Count; i++)
         {
             cellstore[i].GetComponent<CellHandler>().FirstLast(color);
@@ -73,7 +76,9 @@ public class TailHandler : MonoBehaviour
     }
     public void Eating()
     {
-        cellcount++;
+        cellcount++;     
+        play.score += 1;
+        FirstLast(color,play.head.GetComponent<SpriteRenderer>());
         for (int i = 0; i < cellstore.Count; i++)
         {
             cellstore[i].GetComponent<CellHandler>().FirstLast(color);
@@ -97,6 +102,17 @@ public class TailHandler : MonoBehaviour
             }
         }
         return check;
+    }
+
+    public void FirstLast(Color color, SpriteRenderer sprite)
+    {
+         sprite.color = color;
+        Invoke("ColorReset", 0.178f);
+    }
+
+    public void ColorReset()
+    {
+        play.head.GetComponent<SpriteRenderer>().color = _color_;
     }
 }
 #endregion
