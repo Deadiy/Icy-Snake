@@ -285,14 +285,14 @@ MonoBehaviour:
   outbounds_topcorner: {x: -4, y: 5}
   outbounds_bottomcorner: {x: 5, y: -4}
   player: {fileID: 668873740}
-  powerUps: {fileID: 1515716110}
-  enemies: {fileID: 934636486}
-  powerup:
+  powerup: {fileID: 1515716110}
+  enemy: {fileID: 934636486}
+  powerups:
   - {fileID: 6595598355092628328, guid: 0920f23beb905d641a87e8a0522dc05a, type: 3}
   - {fileID: 6595598355092628328, guid: c879ecdd23caf6446a04bf421dc47287, type: 3}
   - {fileID: 6595598355092628328, guid: 44c8729beb1788a4a867e84e3ac1d839, type: 3}
   - {fileID: 6595598355092628328, guid: 4f611debfab44964e9d301963a252f14, type: 3}
-  enemy:
+  enemies:
   - {fileID: 6595598355092628328, guid: 076745cde8041344abb662e0de985d4c, type: 3}
 --- !u!1 &221015460
 GameObject:
