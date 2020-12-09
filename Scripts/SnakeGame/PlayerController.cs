@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public TailHandler tail;
-    public GameObject head;
+    public GameObject head, gameover;
     public Vector2 movement, movementOld;
     public int score = 0;
 
@@ -89,7 +89,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeath()
     {
-        gameObject.SetActive(false);
         tail.GetComponent<TailHandler>().cells.SetActive(false);
+        gameover.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

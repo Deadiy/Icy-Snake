@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour
 {
     public Color color;
-    int timer = 10;
 
+    int timer = 5;
     Color _color_ = Color.white;
 
-   void Awake()
+   void Start()
     {
         FirstLast(timer);
     }
@@ -24,7 +24,7 @@ public class EnemyHandler : MonoBehaviour
     }
     public void FirstLast(int timer)
     {
-        GetComponent<BoxCollider2D>().enabled = false;
+        //GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<SpriteRenderer>().color = color;
         Invoke("Reset", timer);
     }
