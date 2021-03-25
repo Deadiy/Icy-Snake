@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 54232011}
   - component: {fileID: 54232012}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Playfield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,6 +704,7 @@ MonoBehaviour:
   tail: {fileID: 668873745}
   head: {fileID: 306896523}
   gameover: {fileID: 1000020332}
+  playfield: {fileID: 54232010}
   movement: {x: 0, y: 0}
   movementOld: {x: 0, y: 0}
   score: 0
@@ -1090,6 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score_new: {fileID: 964128310}
   score_old: {fileID: 989646353}
+  BackgroundColor: {r: 0.033430338, g: 1, b: 0, a: 0}
 --- !u!114 &1000020335
 MonoBehaviour:
   m_ObjectHideFlags: 0

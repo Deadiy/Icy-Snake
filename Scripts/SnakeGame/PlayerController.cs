@@ -11,11 +11,12 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public TailHandler tail;
-    public GameObject head, gameover;
+    public GameObject head, gameover,playfield;
     public Vector2 movement, movementOld;
     public int score = 0;
 
     bool gotInput = false;
+
 
     void Update()
     {
@@ -92,5 +93,6 @@ public class PlayerController : MonoBehaviour
         tail.GetComponent<TailHandler>().cells.SetActive(false);
         gameover.SetActive(true);
         gameObject.SetActive(false);
+        playfield.SetActive(false);
     }
 }
