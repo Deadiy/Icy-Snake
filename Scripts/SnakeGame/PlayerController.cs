@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public TailHandler tail;
-    public GameObject head, gameover,playfield;
+    public GameObject head, gameover, playfield;
     public Vector2 movement, movementOld;
     public int score = 0;
+
+    public string Objcolli;
 
     bool gotInput = false;
 
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private void CheckDirection()
     {
         Vector2 move = movement;
-        movement =new Vector2 (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (move != movement)
         {
             gotInput = true;
@@ -42,9 +44,9 @@ public class PlayerController : MonoBehaviour
             }
         }
         else gotInput = false;
-        if ((movementOld.x ==1 || movementOld.x == -1) && movementOld.y !=0) movementOld.x = 0;
+        if ((movementOld.x == 1 || movementOld.x == -1) && movementOld.y != 0) movementOld.x = 0;
 
-     
+
     }
 
 
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
 
         if (gotInput == false)
-        {     
+        {
             rb.MovePosition(rb.position + movementOld * (moveSpeed * Time.fixedDeltaTime));
 
         }
@@ -94,5 +96,12 @@ public class PlayerController : MonoBehaviour
         gameover.SetActive(true);
         gameObject.SetActive(false);
         playfield.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "PowerUp")
+            if(collision.GetComponent<PowerHandler>() != null)
+       Objcolli = collision.GetComponent<PowerHandler>().points.ToString();
     }
 }
